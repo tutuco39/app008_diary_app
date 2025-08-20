@@ -1,8 +1,18 @@
-%p{:style => "color: green"}= notice
-= render @entry
-%div
-  = link_to "Edit this entry", edit_entry_path(@entry)
-  |
-  \#{link_to "Back to entries", entries_path}
-  
-  \#{button_to "Destroy this entry", @entry, method: :delete}
+.page-diaries
+  .entry-show
+    %h2= @entry.title
+
+    .entry-meta
+      %span= @entry.date
+      %span.badge= @entry.mood&.humanize || "—"
+
+    - if @entry.photo&.attached?
+      .entry-photo{ style: "margin: 8px 0 14px;" }
+        = image_tag @entry.photo.variant(resize_to_limit: [1000, 1000])
+
+    .entry-body
+      = simple_format @entry.body
+
+    .toolbar{ style: "margin-top:18px" }
+      = link_to "編集", edit_entry_path(@entry), class: "btn"
+      = link_to "一覧に戻る", entries_path, class: "btn btn-primary"

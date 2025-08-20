@@ -1,6 +1,7 @@
-- content_for :title, "New entry"
-%h1 New entry
-= render "form", entry: @entry
-%br/
-%div
-  = link_to "Back to entries", entries_path
+.page-diaries
+  .card
+    %h1 新規作成
+    = render 'form', entry: @entry
+
+  .toolbar{ style: "margin-top:18px" }
+    = link_to "一覧に戻る", entries_path, class: "btn"

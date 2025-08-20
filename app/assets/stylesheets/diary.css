@@ -1,0 +1,116 @@
+/* diary.css — bright blue + white / black text */
+:root{
+  --blue: #1e7bff;        /* 明るめの青 */
+  --blue-600:#1666d6;     /* hover用 */
+  --ink: #111;            /* 黒（本文） */
+  --muted:#6b7280;        /* 補助テキスト */
+  --line:#e5e7eb;         /* 罫線 */
+  --soft:#eef4ff;         /* 薄い青背景 */
+}
+
+html, body { background:#fff; color:var(--ink); }
+
+/* ページラッパー */
+.page-diaries {
+  max-width: 680px;   /* 880px → 680px に狭める */
+  margin: 32px auto;
+  padding: 16px 20px;
+}
+
+/* 見出し */
+.page-diaries h1{
+  font-size: 34px; letter-spacing:.02em; margin: 4px 0 16px;
+}
+
+/* ツールバー（検索・新規） */
+.toolbar{ display:flex; gap:10px; align-items:center; margin:10px 0 18px; }
+.toolbar .field input[type="text"],
+.toolbar input[type="search"],
+.toolbar input[type="text"]{
+  border:1px solid var(--line); border-radius:10px; padding:8px 12px; width: 260px;
+  outline: none;
+}
+.toolbar .btn{ padding:8px 14px; border-radius:10px; border:1px solid var(--blue); background:#fff; color:var(--ink); text-decoration:none; display:inline-block; }
+.toolbar .btn:hover{ background:var(--soft); }
+.toolbar .btn-primary{ background: var(--soft); border-color: var(--blue); }
+.toolbar .btn-primary:hover{ background:#dbe8ff; }
+
+/* テーブル（scaffoldのままでも効く） */
+table{ width:100%; border-collapse: collapse; }
+th, td{ padding:12px 10px; text-align:left; }
+thead th{ border-bottom:2px solid var(--line); }
+tbody tr{ border-bottom:1px solid var(--line); }
+tbody tr:hover{ background: #f6f9ff; }
+
+/* リンク */
+a{ color: var(--blue); text-decoration: none; }
+
+/* アクションリンクをボタン風に */
+.actions a{
+  padding:6px 10px; border:1px solid var(--line); border-radius:8px; margin-right:6px;
+  background:#fff; color:var(--ink); text-decoration:none;
+}
+.actions a:hover{ background:#f8fafc; }
+.actions a.delete{ border-color:#f3c4c4; }
+
+/* バッジ（気分など） */
+.badge{
+  display:inline-block; padding:3px 10px; border-radius:999px;
+  background: var(--soft); border:1px solid #c9dcff; color:var(--ink); font-size:12px;
+}
+
+/* 詳細ページ */
+.entry-show h2{ font-size:22px; margin:0 0 6px; }
+.entry-meta{ color:var(--muted); margin-bottom:12px; display:flex; gap:10px; align-items:center; }
+.entry-body{ line-height:1.75; white-space:pre-wrap; }
+
+/* 画像（ActiveStorage） */
+.entry-photo img{ max-width:100%; height:auto; border-radius:12px; border:1px solid var(--line); }
+
+/* card */
+.card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  margin-bottom: 18px;
+}
+
+.card h1 {
+  margin-top: 0;
+  font-size: 26px;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+}
+
+.field {
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+}
+
+.field label {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.field input,
+.field textarea,
+.field select {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 14px;
+  background: #fff;
+  color: var(--ink);
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+  border-color: var(--blue);
+  outline: none;
+  box-shadow: 0 0 0 2px var(--soft);
+}
