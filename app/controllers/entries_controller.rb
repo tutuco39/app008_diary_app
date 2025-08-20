@@ -1,70 +1,53 @@
 class EntriesController < ApplicationController
-  before_action :set_entry, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!         # ログイン必須
+  before_action :set_entry, only: %i[show edit update destroy]
 
-  # GET /entries or /entries.json
   def index
-    @entries = Entry.all
+    @q = params[:q].to_s.strip
+    entries = current_user.entries.recent
+    entries = entries.where("title LIKE ? OR body LIKE ?", "%#{@q}%", "%#{@q}%") if @q.present?
+    @entries = entries
   end
 
-  # GET /entries/1 or /entries/1.json
   def show
   end
 
-  # GET /entries/new
   def new
-    @entry = Entry.new
+    @entry = current_user.entries.new(date: Date.current)
   end
 
-  # GET /entries/1/edit
   def edit
   end
 
-  # POST /entries or /entries.json
   def create
-    @entry = Entry.new(entry_params)
-
-    respond_to do |format|
-      if @entry.save
-        format.html { redirect_to @entry, notice: "Entry was successfully created." }
-        format.json { render :show, status: :created, location: @entry }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @entry.errors, status: :unprocessable_entity }
-      end
+    @entry = current_user.entries.new(entry_params)
+    if @entry.save
+      redirect_to @entry, notice: "日記を作成しました。"
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /entries/1 or /entries/1.json
   def update
-    respond_to do |format|
-      if @entry.update(entry_params)
-        format.html { redirect_to @entry, notice: "Entry was successfully updated.", status: :see_other }
-        format.json { render :show, status: :ok, location: @entry }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @entry.errors, status: :unprocessable_entity }
-      end
+    if @entry.update(entry_params)
+      redirect_to @entry, notice: "更新しました。"
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
-  # DELETE /entries/1 or /entries/1.json
   def destroy
     @entry.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to entries_path, notice: "Entry was successfully destroyed.", status: :see_other }
-      format.json { head :no_content }
-    end
+    redirect_to entries_url, notice: "削除しました。"
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_entry
-      @entry = Entry.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def entry_params
-      params.require(:entry).permit(:date, :title, :body, :mood, :user_id)
-    end
+  def set_entry
+    @entry = current_user.entries.find(params[:id])  # 他人のIDは404
+  end
+
+  def entry_params
+    params.require(:entry).permit(:date, :title, :body, :mood, :photo)
+  end
 end
