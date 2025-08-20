@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2025-08-20
+  title: MyString
+  body: MyText
+  mood: 1
+  user: one
+
+two:
+  date: 2025-08-20
+  title: MyString
+  body: MyText
+  mood: 1
+  user: two
