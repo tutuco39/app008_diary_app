@@ -74,6 +74,9 @@ GEM
       tzinfo (~> 2.0, >= 2.0.5)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
+    annotate (3.2.0)
+      activerecord (>= 3.2, < 8.0)
+      rake (>= 10.4, < 14.0)
     ast (2.4.3)
     base64 (0.3.0)
     bcrypt (3.1.20)
@@ -113,6 +116,8 @@ GEM
       html2haml
     erubi (1.13.1)
     erubis (2.7.0)
+    faker (3.5.2)
+      i18n (>= 1.8.11, < 2)
     globalid (1.2.1)
       activesupport (>= 6.1)
     haml (6.3.0)
@@ -327,12 +332,14 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  annotate
   bootsnap
   brakeman
   capybara
   debug
   devise (~> 4.9)
   erb2haml
+  faker
   haml-rails (~> 2.1)
   importmap-rails
   jbuilder

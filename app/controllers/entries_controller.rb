@@ -2,12 +2,16 @@ class EntriesController < ApplicationController
   before_action :authenticate_user!         # ログイン必須
   before_action :set_entry, only: %i[show edit update destroy]
 
-  def index
+  def index                                            #自分の記事のみ表示
     @q = params[:q].to_s.strip
     entries = current_user.entries.recent
     entries = entries.where("title LIKE ? OR body LIKE ?", "%#{@q}%", "%#{@q}%") if @q.present?
     @entries = entries
   end
+
+  # def index
+  #   @entries = Entry.order(date: :desc)                  # 全ユーザー分
+  # end
 
   def show
   end
