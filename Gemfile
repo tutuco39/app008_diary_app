@@ -22,7 +22,9 @@ gem "jbuilder"
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
+gem 'annotate'
 gem 'erb2haml'
+gem 'faker'
 gem 'haml-rails', '~> 2.1'
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
