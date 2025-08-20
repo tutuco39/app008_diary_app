@@ -1,34 +1,33 @@
 = form_with(model: entry, local: true) do |f|
   - if entry.errors.any?
-    %div{:style => "color:red"}
-      %h4
-        = pluralize(entry.errors.count, "error")
-        prevented save
+    #error_explanation{ style: "color:red; margin-bottom:12px;" }
+      %h4= "#{pluralize(entry.errors.count, "error")} prevented save"
       %ul
-        - entry.errors.full_messages.each { |m|
-        %li= m
-        - }
-  %div
+        - entry.errors.full_messages.each do |m|
+          %li= m
+
+  .field
     = f.label :date, "日付"
-    %br/
     = f.date_field :date
-  %div
+
+  .field
     = f.label :title, "タイトル"
-    %br/
     = f.text_field :title
-  %div
+
+  .field
     = f.label :body, "本文"
-    %br/
     = f.text_area :body, rows: 10
-  %div
+
+  .field
     = f.label :mood, "気分"
-    %br/
     = f.select :mood, Entry.moods.keys.map { |k| [k, k] }, prompt: "選択してください"
-  %div
+
+  .field
     = f.label :photo, "写真（任意）"
-    %br/
     = f.file_field :photo, accept: "image/*"
     - if entry.photo.attached?
-      %div{:style => "margin-top:8px"}= image_tag entry.photo.variant(resize_to_limit: [600, 600])
-  %div{:style => "margin-top:12px"}
-    = f.submit
+      .entry-photo{ style: "margin-top:8px" }
+        = image_tag entry.photo.variant(resize_to_limit: [600, 600])
+
+  .toolbar{ style: "margin-top:18px" }
+    = f.submit "保存", class: "btn btn-primary"

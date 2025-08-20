@@ -1,21 +1,29 @@
-%h1 日記
-= form_with url: entries_path, method: :get, local: true do |f|
-  = f.text_field :q, value: @q, placeholder: "タイトル・本文で検索"
-  = f.submit "検索"
-%p= link_to "新規作成", new_entry_path
-%table
-  %thead
-    %tr
-      %th 日付
-      %th 気分
-      %th タイトル
-      %th
-  %tbody
-    - @entries.each do |e|
+.page-diaries
+  %h1 日記
+
+  .toolbar
+    = form_with url: entries_path, method: :get, local: true do |f|
+      %span.field
+        = f.text_field :q, value: @q, placeholder: "タイトル・本文で検索"
+      = f.submit "検索", class: "btn"
+    = link_to "新規作成", new_entry_path, class: "btn btn-primary"
+
+  %table
+    %thead
       %tr
-        %td= e.date
-        %td= e.mood&.humanize
-        %td= link_to e.title, e
-        %td
-          = link_to "編集", edit_entry_path(e)
-          | #{link_to "削除", e, data: { turbo_method: :delete, turbo_confirm: "削除しますか？" }}
+        %th 日付
+        %th 気分
+        %th タイトル
+        %th
+    %tbody
+      - @entries.each do |e|
+        %tr
+          %td= e.date
+          %td
+            %span.badge= e.mood&.humanize || "—"
+          %td= link_to e.title, e
+          %td.actions
+            = link_to "編集", edit_entry_path(e)
+            = link_to "削除", e,
+              data: { turbo_method: :delete, turbo_confirm: "削除しますか？" },
+              class: "delete"

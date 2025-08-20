@@ -1,8 +1,8 @@
-- content_for :title, "Editing entry"
-%h1 Editing entry
-= render "form", entry: @entry
-%br/
-%div
-  = link_to "Show this entry", @entry
-  |
-  \#{link_to "Back to entries", entries_path}
+.page-diaries
+  .card
+    %h1 編集
+    = render 'form', entry: @entry
+
+  .toolbar{ style: "margin-top:18px" }
+    = link_to "戻る", entry_path(@entry), class: "btn"
+    = link_to "一覧に戻る", entries_path, class: "btn btn-primary"
