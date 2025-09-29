@@ -25,7 +25,7 @@ gem "jbuilder"
 gem 'annotate'
 gem 'erb2haml'
 gem 'faker'
-gem 'haml-rails', '~> 2.1'
+gem 'haml-rails', '~> 3.0'
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
